@@ -1,4 +1,5 @@
 import numpy as np
+import Kernel_code as Kc
 
 
 class VTCode:
@@ -12,8 +13,8 @@ class VTCode:
         single substitution errors as well.
         """
         assert q >= 2
-        assert n >= 2
-        self.n = n
+        assert n >= 3
+        self.n = n - 1
         self.q = q
         assert q == 2
         self.correct_substitutions = correct_substitutions
@@ -27,6 +28,7 @@ class VTCode:
             self.m = 2 * self.n + 1
         assert 0 <= self.a < self.m
         self._generate_systematic_positions_binary()
+        self.kc = Kc.Kernel_codes()
 
     def _generate_systematic_positions_binary(self):
         # generate positions of systematic and parity bits (1 indexed)
@@ -46,17 +48,17 @@ class VTCode:
             else:
                 self.parity_positions[t] = self.n
         self.systematic_positions = np.setdiff1d(np.arange(1, self.n + 1), self.parity_positions)
-        print(self.systematic_positions)
         return
 
-    def decode(self, y):
+    def decode(self, z):
         """
         input  y: list or 1d np array with the noisy codeword
         return x: decoded message bits as a 1d numpy array with dtype int64 or
                   None if decoding fails
         """
+        assert len(z[1]) == 1
+        y = self.kc.kernel_code_decoder(z)
         y = np.array(y, dtype=np.int64)
-        assert y.ndim == 1
         n_y = y.size
         if (n_y < self.n - 1) or (n_y > self.n + 1):
             return None
@@ -97,7 +99,8 @@ class VTCode:
         if (np.max(x) > 1) or (np.min(x) < 0):
             print("Value in x out of range {0, 1}")
             raise RuntimeError
-        return self._encode_binary(x)
+        vt_encode = self._encode_binary(x)
+        return vt_encode, self.kc.kernel_code_encoder(vt_encode)
 
     def _decode_codeword_binary(self, y):
         """
@@ -135,9 +138,11 @@ def find_k(n: int, correct_substitutions=False):
     single substitution errors as well.
     """
     if not correct_substitutions:
-        return n - np.ceil(np.log2(n + 1)).astype(np.int64)
+        h = n - np.ceil(np.log2(n + 1)).astype(np.int64)
+        return h
     else:
-        return n - np.ceil(np.log2(2 * n + 1)).astype(np.int64)
+        h = n - np.ceil(np.log2(2 * n + 1)).astype(np.int64)
+        return h
 
 
 def _correct_binary_substitution(n: int, m: int, a: int, y):
@@ -258,3 +263,8 @@ def _compute_syndrome_binary(m: int, a: int, y):
     """
     n_y = y.size
     return np.mod(a - np.sum((1 + np.arange(n_y)) * y), m)
+
+
+"""
+Now we are going to use kernel codes encoding and decoding
+"""
