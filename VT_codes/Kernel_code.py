@@ -3,7 +3,6 @@ import numpy as np
 
 class Kernel_codes:
     def __init__(self):
-        self.reverse_compliment_codeword = []  # For the code we are going to store its reverse
         self.dict_map2 = {  # conversion map
             (0, 0): 'G',
             (0, 1): 'T',
@@ -43,21 +42,22 @@ class Kernel_codes:
             zip(the_value[:enc_k + 1], the_value[enc_k + 1:]))  # tupling the respective values to encode into DNA
         dna_codeword = [self.dict_map[element] for element in iter_val]  # the tuple is converted into DNA
         value = [self.dict_map2[element] for element in iter_val]  # reverse value is being stored for later use
-        self.reverse_compliment_codeword.append(value[::-1])
-        return value_kernel, the_value, dna_codeword
+        reverse_compliment_codeword = value[::-1]
+        return reverse_compliment_codeword, dna_codeword, value_kernel, the_value
 
     def kernel_code_decoder(self, received_word):
         decode_kernel = [self.decode_book[value] if value in self.decode_book else ValueError
                          for value in received_word]
         return decode_kernel[1:]
 
-    def reverse_compliment_error(self, pob):
-        pob_num = np.array(pob)
-        hamming_matrix = [np.array(0)] * len(pob_num)
-        for i in range(len(pob_num)):
-            y = pob_num != self.reverse_compliment_codeword[
-                i]  # using numpy module checking the rows of whole matrix with one vector
-            y = y.astype(int)  # Converting True false value as 0 and 1
-            y = np.sum(y, axis=1)  # adding all the columns of each row to a single element
-            hamming_matrix[i] = y
-        return np.min(hamming_matrix)
+
+def reverse_compliment_error(pob, pob2):
+    pob_num = np.array(pob)
+    hamming_matrix = [np.array(0)] * len(pob_num)
+    for i in range(len(pob_num)):
+        y = pob_num != pob2[
+            i]  # using numpy module checking the rows of whole matrix with one vector
+        y = y.astype(int)  # Converting True false value as 0 and 1
+        y = np.sum(y, axis=1)  # adding all the columns of each row to a single element
+        hamming_matrix[i] = y
+    return np.min(hamming_matrix)
