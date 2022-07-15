@@ -1,0 +1,9 @@
+p = list(range(3,10,2))
+print(p)
+b = []
+
+for i in p:
+    if i>5:
+        b.append(i+7)
+
+print(b[0]+b[1])
