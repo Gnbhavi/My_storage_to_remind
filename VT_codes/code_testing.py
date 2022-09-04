@@ -8,22 +8,20 @@ import codecs
 
 
 # input_message = input("Enter the word to convert into Kernel Code: ")
-# l = [format(ord(x), 'b') for x in input_message]
-
-# length = len(l)
-# enc = [0] * length 
-# kc = Kernel_codes()
-# for i in range(length):
-#     val = [int(x) for x in l[i]]
-#     _, enc[i], _, _= kc.kernel_code_encoder(val)
-#     print("i  = {}, enc is = {}".format(i, enc[i]))
-
-# print(enc)
-
-
 datafile=open("/Users/gnbhavithran/Downloads/2022_IJBIC-106227.pdf",'rb')
 pdfdatab=datafile.read()    #this is binary data
 b64PDF = codecs.encode(pdfdatab, 'base64')
-Sb64PDF=b64PDF.decode('utf-8')
+input_message=b64PDF.decode('utf-8')
+l = [format(ord(x), 'b') for x in input_message]
 
-print(b64PDF[0])
+length = len(l)
+enc = [0] * length 
+kc = Kernel_codes()
+for i in range(length):
+    val = [int(x) for x in l[i]]
+    _, enc[i], _, _= kc.kernel_code_encoder(val)
+
+# for hello in range(10):
+#     print("i  = {}, enc is = {}".format(hello, enc[hello]))
+
+print(len(enc))
