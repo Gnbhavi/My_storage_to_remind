@@ -25,4 +25,3 @@ for hello in range(10):
     print("i  = {}, enc is = {}".format(hello, enc[hello]))
 
 print(len(enc))
-f
