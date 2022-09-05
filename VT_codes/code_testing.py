@@ -21,7 +21,8 @@ for i in range(length):
     val = [int(x) for x in l[i]]
     _, enc[i], _, _= kc.kernel_code_encoder(val)
 
-# for hello in range(10):
-#     print("i  = {}, enc is = {}".format(hello, enc[hello]))
+for hello in range(10):
+    print("i  = {}, enc is = {}".format(hello, enc[hello]))
 
 print(len(enc))
+f
