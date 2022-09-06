@@ -1,3 +1,4 @@
+from ast import Return
 import numpy as np
 
 
@@ -61,3 +62,16 @@ def reverse_compliment_error(pob, pob2):
         y = np.sum(y, axis=1)  # adding all the columns of each row to a single element
         hamming_matrix[i] = y
     return np.min(hamming_matrix)
+
+def correlation_finder(A, B):
+    C = [0] * len(A)
+    for i in range(len(A)):
+        val = 0
+        j = 0
+        while(j < len(B) and i+j < len(A)):
+            if A[i+j] == B[j]:
+                val = 1
+                break
+            j += 1
+        C[i] = val
+    return C
