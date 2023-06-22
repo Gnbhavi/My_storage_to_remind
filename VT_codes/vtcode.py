@@ -100,8 +100,8 @@ class VTCode:
             print("Value in x out of range {0, 1}")
             raise RuntimeError
         vt_encode = self._encode_binary(x)
-        # return vt_encode, self.kc.kernel_code_encoder(vt_encode)
-        return self.kc.kernel_code_encoder(vt_encode)
+        return vt_encode, self.kc.kernel_code_encoder(vt_encode)
+        # return self.kc.kernel_code_encoder(vt_encode)
 
     def _decode_codeword_binary(self, y):
         """

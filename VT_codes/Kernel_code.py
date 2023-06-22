@@ -44,8 +44,8 @@ class Kernel_codes:
         dna_codeword = [self.dict_map[element] for element in iter_val]  # the tuple is converted into DNA
         value = [self.dict_map2[element] for element in iter_val]  # reverse value is being stored for later use
         reverse_compliment_codeword = value[::-1]
-        # return reverse_compliment_codeword, dna_codeword, value_kernel, the_value
-        return dna_codeword
+        return reverse_compliment_codeword, dna_codeword, value_kernel, the_value
+        # return dna_codeword
 
     def kernel_code_decoder(self, received_word):
         decode_kernel = [self.decode_book[value] if value in self.decode_book else ValueError

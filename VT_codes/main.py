@@ -30,13 +30,14 @@ for i in range(2 ** length):
 mat_val = 2 * np.floor((n - 3) / 2)
 # print('the matching value: ', mat_val)
 
-DNA_code = pd.DataFrame([Binary_number, VT_encoded, Kernel_code, Concatenate_kernel_code, pob])
+DNA_code = pd.DataFrame([Binary_number, VT_encoded, Concatenate_kernel_code, pob])
 DNA_code = DNA_code.transpose()
-DNA_code.columns = ['Binary_number', 'VT_encoded', 'Kernel_code', 'Concatenated kernel code', 'DNA_codeword']
-print(len(pob))
+DNA_code.columns = ['Binary_number', 'VT_encoded', 'Concatenated kernel code', 'DNA_codeword']
+# print(len(pob))
 
-Lets_see = []
-for i, j in itertools.combinations(pob, 2):
-    Lets_see.append(sum(kc.correlation_finder(i, j)))
+# Lets_see = []
+# for i, j in itertools.combinations(pob, 2):
+#     Lets_see.append(sum(kc.correlation_finder(i, j)))
 
-print(np.max(Lets_see))
+# print(np.max(Lets_see))
+print(DNA_code)
