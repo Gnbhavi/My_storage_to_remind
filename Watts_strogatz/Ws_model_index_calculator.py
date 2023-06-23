@@ -5,8 +5,6 @@ import numpy as np
 
 def values_generator_depending_on_n(num_vertex):
     ws = wsg.Ws_generator(num_vertex, 6)
-    ws.G.remove_edge(0,1)
-    ws.G.add_edge(0, 4)
     minimum_distances = dict(nx.shortest_path_length(ws.G))
     graph = ws.G
     the_neighbourhood_vertices = {}
