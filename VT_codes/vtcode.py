@@ -58,6 +58,7 @@ class VTCode:
         """
         assert len(z[1]) == 1
         y = self.kc.kernel_code_decoder(z)
+        print("Kernel code decoder: ", y)
         y = np.array(y, dtype=np.int64)
         n_y = y.size
         if (n_y < self.n - 1) or (n_y > self.n + 1):
@@ -67,6 +68,7 @@ class VTCode:
             raise RuntimeError
         if n_y != self.n:
             y = _correct_binary_indel(self.n, self.m, self.a, y)
+
         else:
             if self.correct_substitutions and not self._is_codeword(y):
                 y = _correct_binary_substitution(self.n, self.m, self.a, y)
@@ -177,6 +179,7 @@ def _correct_binary_indel(n: int, m: int, a: int, y):
     Output: corrected codeword
     """
     s = _compute_syndrome_binary(m, a, y)
+    print("syndrome: ", s)
     w = np.sum(y)
     y_decoded = np.zeros(n, dtype=np.int64)
     if y.size == n - 1:

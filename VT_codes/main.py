@@ -4,9 +4,12 @@ import numpy as np
 import pandas as pd
 import itertools
 
-pd.set_option('display.max_columns', None)
+# pd.set_option('display.max_columns', None)
+pd.options.display.max_columns = 10000000
+pd.options.display.max_colwidth = 1000000
+# pd.options.display.max_rows = 100000
 pd.set_option('display.max_rows', None)
-
+# pd.options.display.max_rows = 100000
 n = int(input('Enter the length of the codeword: '))
 binary_10_digit = vt.VTCode(n, 2, correct_substitutions=True)
 length = binary_10_digit.k
@@ -30,9 +33,12 @@ for i in range(2 ** length):
 mat_val = 2 * np.floor((n - 3) / 2)
 # print('the matching value: ', mat_val)
 
-DNA_code = pd.DataFrame([Binary_number, VT_encoded, Concatenate_kernel_code, pob])
+DNA_code = pd.DataFrame([Binary_number, VT_encoded])
+DNA_code1 = pd.DataFrame([Concatenate_kernel_code, pob])
 DNA_code = DNA_code.transpose()
-DNA_code.columns = ['Binary_number', 'VT_encoded', 'Concatenated kernel code', 'DNA_codeword']
+DNA_code1 = DNA_code1.transpose()
+DNA_code.columns = ['Binary_number', 'VT_encoded']
+DNA_code1.columns = ['Concatenate_kernel_code', 'DNA_code']
 # print(len(pob))
 
 # Lets_see = []
@@ -41,3 +47,4 @@ DNA_code.columns = ['Binary_number', 'VT_encoded', 'Concatenated kernel code', '
 
 # print(np.max(Lets_see))
 print(DNA_code)
+print(DNA_code1)

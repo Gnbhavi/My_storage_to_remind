@@ -39,6 +39,7 @@ def myformula_for_finding_n_u_1(n, k):
         else:
             # print("else")
             n_v[i] = (i+1) * A + 1 - (i + 1 - mod_rem)
+            # n_v[i] = (i + 1) * A + 1 - (i + 1 - mod_rem + 1)
     return n_v
 
 def validating_my_formula_and_orginal():
@@ -46,8 +47,8 @@ def validating_my_formula_and_orginal():
     K = {}
     valus21 = 0
     print("running")
-    for n in range(10, 500):
-    # for n in range(7, 13):
+    # for n in range(10, 500):
+    for n in range(7, 20):
         K[n], the_table_of_n_u_v[n] = values_generator_depending_on_n(n)
         if myformula_for_finding_n_u_1(n,6) != the_table_of_n_u_v[n]:
             print("n is ", n)
