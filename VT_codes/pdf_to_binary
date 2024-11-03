@@ -1,5 +1,0 @@
-from asyncore import read
-
-
-data = open("/Users/gnbhavithran/Desktop/AEJM-S-22-00711.pdf", 'rb')
-data_pdf = data.read()

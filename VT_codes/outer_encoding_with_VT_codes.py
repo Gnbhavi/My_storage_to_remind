@@ -47,8 +47,7 @@ for i in range(2**length_before_kr):
   value_kernel = [1] + val + [0] if parity else [1] + val + [1]
 
   redundancy = [0] * length
-
-  
+ 
 
   """
         For the redundancy bit information bit is separated into 3 categories
@@ -69,7 +68,7 @@ for i in range(2**length_before_kr):
   vt_encoded_val.append(encoded_vt)
 
   redundancy_val.append(redundancy_enc)
-  vt_total_encode.append( np.append(encoded_vt , redundancy_enc))
+  vt_total_encode.append(np.append(encoded_vt , redundancy_enc))
 
   iter_val = tuple(zip(encoded_vt, redundancy_enc))
 

@@ -56,9 +56,10 @@ class VTCode:
         return x: decoded message bits as a 1d numpy array with dtype int64 or
                   None if decoding fails
         """
-        assert len(y) == 1
+        y = np.array(y, dtype=np.int64)
+        assert y.ndim == 1
         # y = self.kc.kernel_code_decoder(z)
-        print("Kernel code decoder: ", y)
+        # print("Kernel code decoder: ", y)
         y = np.array(y, dtype=np.int64)
         n_y = y.size
         if (n_y < self.n - 1) or (n_y > self.n + 1):
@@ -190,7 +191,7 @@ def _correct_binary_indel(n: int, m: int, a: int, y):
     Output: corrected codeword
     """
     s = _compute_syndrome_binary(m, a, y)
-    print("syndrome: ", s)
+    # print("syndrome: ", s)
     w = np.sum(y)
     y_decoded = np.zeros(n, dtype=np.int64)
     if y.size == n - 1:
